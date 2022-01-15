@@ -1,0 +1,37 @@
+﻿@model IEnumerable<FinalProject.Oggetto>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+
+<div class="text-end m-2">
+    @Html.ActionLink("Nuovo Oggetto", "NewOggetto", "", new { @class = "btn btn-success" })
+</div>
+
+<div class="bgObj m-3">
+    <table class="table table-borderless table-hover">
+        <tr class="bg-gradient-to-r from-sky-500 via-blue-500 to-sky-50 opacity-75">
+            <th>
+                @Html.DisplayNameFor(model => model.Oggetto1)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Oggetto1)
+                </td>
+
+                <td class="text-end">
+                    @Html.ActionLink("Denuncie con oggetto " + item.Oggetto1 + "", "PerTipo", new { nome= item.Oggetto1 },new {@class= "link-primary"})
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

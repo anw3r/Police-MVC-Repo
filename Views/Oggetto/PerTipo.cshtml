@@ -1,0 +1,104 @@
+﻿@model IEnumerable<FinalProject.Denuncia>
+
+@{
+    ViewBag.Title = "PerTipo";
+}
+
+<h2>Per Tipo</h2>
+
+
+<table class="d-flex table table-hover table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FotoOggetto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Oggetto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Denunciante.Cognome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Agente)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataDenuncia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataAcca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idDenunc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataRitrovo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsTrovato)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        string bgsuc = "";
+        if (item.IsTrovato)
+        {
+            bgsuc = "bg-success bg-gradient bg-opacity-50 rounded";
+
+        }
+        <tr class="@bgsuc">
+            <td>
+                <img src="~/IMGs/@item.FotoOggetto" alt="Alternate Text" style="width:45px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Oggetto.Oggetto1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descrizione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Denunciante.Cognome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Agente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataDenuncia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataAcca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Denunciante.Nome)
+                @Html.DisplayFor(modelItem => item.Denunciante.Cognome)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DataRitrovo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsTrovato)
+            </td>
+            <td>
+                @Html.ActionLink("Modifica", "Edit", "Denuncia", new { id = item.idDenuncia }, "") |
+                @Html.ActionLink("Dettagli", "Details", "Denuncia", new { id = item.idDenuncia }, "") |
+                @if (item.IsTrovato != true)
+                {
+                    @Html.ActionLink("Trovato", "Trovato", "Denuncia", new { id = item.idDenuncia }, "")
+                }
+            </td>
+        </tr>
+    }
+
+</table>

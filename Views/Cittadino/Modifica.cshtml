@@ -1,0 +1,129 @@
+﻿@model FinalProject.Cittadino
+
+@{
+    ViewBag.Title = "Modifica Dati Cittadino";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="container text-center">
+            <p class="row" id="sec1btn"> Espandi </p>
+            <div id="sec1">
+                <div class="row m-3">
+                    <div class="col-4">
+                        <div class="form-group Name">
+                            <div class="col-md-10 form-floating">
+                                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Nome" } })
+                                <label for="floatingPassword">Nome</label>
+                                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group Surname">
+                            <div class="col-md-10 form-floating">
+                                @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Nome" } })
+                                <label for="floatingPassword">Cognome</label>
+                                @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group CF">
+                            <div class="col-md-10 form-floating">
+                                @Html.DropDownListFor(model => model.Residenza, new SelectList(ViewBag.city,"DisplayName"), "<<< Scegli la Città >>>", htmlAttributes: new { @class = "form-control dropdown" })
+                                <label for="floatingPassword">Residenza</label>
+                                @Html.ValidationMessageFor(model => model.Residenza, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="row" id="sec2btn"> Espandi </p>
+            <div id="sec2">
+                <div class="row m-3 form-group">
+                    <div class="col-4">
+                        <div class="Childs form-floating">
+                            @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Indirizzo" } })
+                            <label for="floatingPassword">Indirizzo</label>
+                            @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+
+                            @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Indirizzo", Type = "number" } })
+                            <label for="floatingPassword">Tel:</label>
+                            @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+
+                        </div>
+                        
+                    </div>
+                    <div class="col-4">
+                        <div class="Address form-floating">
+                            <div class="form-floating">
+                                @Html.DropDownListFor(model => model.TipoDocumento, new SelectList(ViewBag.doc, "Value", "Text"), "<<< Scegli il Documento >>>", htmlAttributes: new { @class = "form-control dropdown" })
+                                <label for="floatingPassword">Tipo Documento</label>
+                                @Html.ValidationMessageFor(model => model.TipoDocumento, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row px-3 m-5">
+            <input type="submit" value="Aggiungi" class="btn btn-outline-success" />
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#sec2').slideUp();
+        $('#sec3').slideUp();
+
+        $('#sec1btn').click(function () {
+            $('p').removeClass('bg-warning');
+            $('#sec2').slideUp();
+            $('#sec3').slideUp();
+            $('#sec1btn').addClass('bg-warning');
+            $('#sec1').toggle(800);
+        })
+
+        $('#sec2btn').click(function () {
+            $('p').removeClass('bg-warning');
+            $('#sec1').slideUp();
+            $('#sec3').slideUp();
+            $('#sec2btn').addClass('bg-warning');
+            $('#sec2').toggle(800);
+
+        })
+
+        $('#sec3btn').click(function () {
+            $('p').removeClass('bg-warning');
+            $('#sec2').slideUp();
+            $('#sec1').slideUp();
+            $('#sec3btn').addClass('bg-warning');
+            $('#sec3').toggle(800);
+
+        })
+    })
+</script>
+}

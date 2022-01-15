@@ -1,0 +1,104 @@
+﻿@model IEnumerable<FinalProject.Denuncia>
+
+@{
+    ViewBag.Title = "CardHome";
+}
+
+
+
+<div class="text-end btn-group m-3">
+    <div class="btn-group">
+        @Html.ActionLink("Nuova Denuncia", "Create", "", new { @class = "btn btn-success " })
+        @Html.ActionLink("Switch Visuale", "Home", "", new { @class = "btn btn-info" })
+    </div>
+</div>
+<div class="row">
+
+
+    @foreach (var item in Model)
+    {
+        string bgsuc = "";
+        if (item.IsTrovato)
+        {
+            bgsuc = "bg-success bg-gradient bg-opacity-50 rounded";
+
+        }
+        <div class="col-4">
+            <div class="border-1 border-secondary rounded m-2 p-2 text-center @bgsuc">
+
+
+                <div>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </div>
+
+                <div >
+                    <a href="~/Oggetto/PerTipo?nome=@item.Oggetto.Oggetto1" >
+                        <img src="~/IMGs/@item.FotoOggetto" alt="Alternate Text" style="margin-inline:auto; height:100px;" />
+                        @Html.DisplayFor(modelItem => item.Oggetto.Oggetto1)
+                    </a>
+                </div>
+                <div>
+                    <a href="~/Cittadino/dettagli/@item.Denunciante.idCittadino"> @Html.DisplayFor(modelItem => item.Denunciante.Cognome) @Html.DisplayFor(modelItem => item.Denunciante.Nome)</a>
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.Agente)
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.DataDenuncia)
+                </div>
+                <div>
+                    @Html.DisplayFor(modelItem => item.DataAcca)
+                </div>
+                <div>
+                    @if (item.IsTrovato == true)
+                    {
+                        <p> Oggetto Trovato </p>
+                    }
+                    else
+                    {
+                        <p> Oggetto Non Trovato </p>
+                    }
+
+                </div>
+
+                @if (item.IsTrovato == true)
+                {
+                    <div>
+                        @Html.DisplayFor(modelItem => item.DataRitrovo)
+                    </div>
+                    <div>
+                        <a href="~/Cittadino/dettagli/@item.Trovante.idCittadino"> @Html.DisplayFor(modelItem => item.Trovante.Cognome) @Html.DisplayFor(modelItem => item.Trovante.Nome)</a>
+                    </div>
+
+                }
+                else
+                {
+
+                    <div>
+                        <p>-</p>
+                    </div>
+                    <div>
+                        <p>-</p>
+                    </div>
+                }
+
+
+
+                <div class="bg-secondary bg-opacity-25 border-1 rounded m-2 ">
+                    <div class="btn-group justify-content-around">
+                        @Html.ActionLink("Modifica", "Edit", new { id = item.idDenuncia }, new { @class = "btn btn-dark my-1" })
+                        @Html.ActionLink("Dettagli", "Details", new { id = item.idDenuncia }, new { @class = "btn btn-dark my-1" })
+
+                        @if (item.IsTrovato == false)
+                        {
+                            @Html.ActionLink("Trovato", "Trovato", new { id = item.idDenuncia }, new { @class = "btn btn-dark my-1" })
+                        }
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    }
+
+</div>

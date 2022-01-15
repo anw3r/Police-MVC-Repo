@@ -1,0 +1,31 @@
+﻿@model FinalProject.Cittadino
+
+@{
+    ViewBag.Title = "Dettagli Cittadino";
+}
+
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6 m-3">
+
+        
+        <h1 class="text-2xl text-center text-cyan-400 m-2">@Html.DisplayFor(model => model.Nome)  @Html.DisplayFor(model => model.Cognome)</h1>
+
+
+        <strong class="text-left">@Html.DisplayNameFor(model => model.Residenza):</strong>
+        <p class="text-center">
+            @Html.DisplayFor(model => model.Residenza)
+        </p>
+        <hr />
+        <strong class="text-left">@Html.DisplayNameFor(model => model.Indirizzo):</strong><p class="text-center"> @Html.DisplayFor(model => model.Indirizzo)</p>
+        <hr />
+        <strong class="text-left">@Html.DisplayNameFor(model => model.Numero):</strong><p class="text-center"> @Html.DisplayFor(model => model.Numero)</p>
+        <hr />
+        <strong class="text-left">@Html.DisplayNameFor(model => model.TipoDocumento):</strong><p class="text-center"> @Html.DisplayFor(model => model.TipoDocumento)</p>
+    </div>
+</div>
+<div class="col-3"></div>
+<p>
+    @Html.ActionLink("Modifica", "Modifica", new { id = Model.idCittadino }) |
+    @Html.ActionLink("Ritorna alla Home", "Home")
+</p>

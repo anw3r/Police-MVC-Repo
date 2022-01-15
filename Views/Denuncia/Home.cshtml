@@ -1,0 +1,120 @@
+﻿@model IEnumerable<FinalProject.Denuncia>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="text-end btn-group m-3">
+    <div class="btn-group">
+        @Html.ActionLink("Nuova Denuncia", "Create", "", new { @class = "btn btn-success " })
+        @Html.ActionLink("Switch Visuale", "CardHome", "", new { @class = "btn btn-info" })
+    </div>
+</div>
+<div class="bgDen m-3">
+    <table class="table table-borderless table-hover">
+        <tr class="bg-gradient-to-r from-sky-500 via-blue-500 to-sky-50 opacity-75">
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.FotoOggetto)*@
+
+                @Html.DisplayNameFor(model => model.Oggetto.Oggetto1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idDenunc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Agente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataDenuncia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataAcca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsTrovato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataRitrovo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idTrova)
+            </th>
+            <th class="">
+                
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            string bgsuc = "";
+            if (item.IsTrovato)
+            {
+                bgsuc = "bg-success bg-gradient bg-opacity-50 rounded";
+
+            }
+            <tr class="@bgsuc">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+
+                <td>
+                    <a href="~/Oggetto/PerTipo?nome=@item.Oggetto.Oggetto1">
+                        <img src="~/IMGs/@item.FotoOggetto" alt="Alternate Text" style="width:25%;" />
+                        @Html.DisplayFor(modelItem => item.Oggetto.Oggetto1)
+                    </a>
+                </td>
+                <td>
+                    <a href="~/Cittadino/dettagli/@item.Denunciante.idCittadino"> @Html.DisplayFor(modelItem => item.Denunciante.Cognome) @Html.DisplayFor(modelItem => item.Denunciante.Nome)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Agente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataDenuncia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataAcca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsTrovato)
+                </td>
+
+                @if (item.IsTrovato == true)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataRitrovo)
+                    </td>
+                    <td>
+                        <a href="~/Cittadino/dettagli/@item.Trovante.idCittadino"> @Html.DisplayFor(modelItem => item.Trovante.Cognome) @Html.DisplayFor(modelItem => item.Trovante.Nome)</a>
+                    </td>
+
+                }
+                else
+                {
+
+                    <td></td>
+                    <td></td>
+                }
+
+
+
+                <td class="bg-secondary bg-opacity-25 border-1 border-dark border-bottom-0 ">
+                    <div class="btn-group-sm btn-group-vertical justify-content-around">
+                        @Html.ActionLink("Modifica", "Edit", new { id = item.idDenuncia }, new { @class = "btn btn-outline-dark " })
+                        @Html.ActionLink("Dettagli", "Details", new { id = item.idDenuncia }, new { @class = "btn btn-outline-dark " })
+
+                        @if (item.IsTrovato == false)
+                        {
+                            @Html.ActionLink("Trovato", "Trovato", new { id = item.idDenuncia }, new { @class = "btn btn-outline-dark " })
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+
+
+    </table>
+</div>

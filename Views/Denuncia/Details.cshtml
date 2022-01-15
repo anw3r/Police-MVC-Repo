@@ -1,0 +1,65 @@
+﻿@model FinalProject.Denuncia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Denuncia</h4>
+    <hr />
+    <div class="row justify-content-center">
+        @if (Model.IsTrovato == false)
+        {
+            <p class="bg-danger m-3 text-center text-light rounded p-3 bg-gradient"> Oggetto Non Ancora Trovato </p>
+        }
+        else
+        {
+            <p class="bg-success m-3 text-center text-light rounded p-3 bg-gradient"> Oggetto Trovato il :@Model.DataRitrovo</p>
+        }
+        <div class="col-3"></div>
+        <div class="col-6 m-3 justify-content-center table-hover">
+            <img src="~/IMGs/@Model.FotoOggetto" alt="FOTO" class="card-img-top" style="width:150px; " />
+            <div class="d-block m-3">
+                <b> @Html.DisplayNameFor(model => model.Oggetto.Oggetto1):</b>  @Html.DisplayFor(model => model.Oggetto.Oggetto1)
+            </div>
+            <div class="d-block m-3">
+                <b> @Html.DisplayNameFor(model => model.Descrizione):</b>  @Html.DisplayFor(model => model.Descrizione)
+            </div>
+            <div class="d-block m-3">
+                <b>@Html.DisplayNameFor(model => model.DataAcca)</b>@Html.DisplayFor(model => model.DataAcca)
+            </div>
+            <div class="d-block m-3">
+                <b>@Html.DisplayNameFor(model => model.DataDenuncia) :</b> @Html.DisplayFor(model => model.DataDenuncia)
+            </div>
+            <div class="d-block m-3">
+                <b>@Html.DisplayNameFor(model => model.Agente) :</b> @Html.DisplayFor(model => model.Agente)
+            </div>
+            <div class="d-block m-3">
+                <b>@Html.DisplayNameFor(model => model.idDenunc) :</b> @Html.DisplayFor(model => model.Denunciante.Cognome) @Html.DisplayFor(model => model.Denunciante.Nome)
+            </div>
+            @if (Model.IsTrovato == true)
+            {
+                <div class="d-block m-3">
+                    <b>@Html.DisplayNameFor(model => model.DataRitrovo) :</b> @Html.DisplayFor(model => model.DataRitrovo)
+                </div>
+                <div class="d-block m-3">
+                    <b>@Html.DisplayNameFor(model => model.idTrova) :</b> @Html.DisplayFor(model => model.Trovante.Cognome) @Html.DisplayFor(model => model.Trovante.Nome)
+                </div>
+            }
+            else
+            {<div class="row-cols-4">
+                    @Html.ActionLink("Trovato?", "Trovato", "Denuncia", new { id = Model.idDenuncia },new { 
+                @class = "btn btn-success" })
+                </div>
+            }
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.idDenuncia }) |
+
+</p>

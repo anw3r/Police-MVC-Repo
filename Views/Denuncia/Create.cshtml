@@ -1,0 +1,128 @@
+﻿@model FinalProject.Denuncia
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("Create","Denuncia",null,FormMethod.Post,new {enctype="multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Denuncia</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+
+            <div class="col-6">
+                <p class="row" id="sec1btn"> Espandi </p>
+                <div id="sec1">
+
+                    <div class="form-group">
+                        <div class="m-3">
+                            @Html.DropDownListFor(model => model.Tipo, new SelectList(ViewBag.Type,"Text", "Value"), "««« Tipo Denuncia »»»", new { htmlAttributes = new { @class = "form-control m-2 dropdown" } })
+                            @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="m-2 form-floating">
+                            @Html.EditorFor(model => model.DataDenuncia, new { htmlAttributes = new { @class = "form-control", Type = "datetime-local",@placeholder= "Data Denuncia" } })
+                            <label for="DataDenuncia"> Data Denuncia</label>
+                            @Html.ValidationMessageFor(model => model.DataDenuncia, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="m-2 form-floating">
+                            @Html.DropDownListFor(model => model.IdOggetto, new SelectList(ViewBag.Ogg, "idOggetto", "Oggetto1"), "««« Oggetto Smarrito »»»", htmlAttributes: new { @class = "form-control", @placeholder = "Oggetto" })
+                            <label for="oggetto"> Oggetto</label>
+                            @Html.ValidationMessageFor(model => model.IdOggetto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="m-2 form-floating">
+                            @Html.EditorFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control", @placeholder = "Descrizione" } })
+                            <label for="oggetto"> Descrizione </label>
+                            @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="m-2 form-floating">
+                            @Html.EditorFor(model => model.DataAcca, new { htmlAttributes = new { @class = "form-control", Type = "datetime-local", @placeholder = "Data Accaduto" } })
+                            <label for="oggetto"> Data Accaduto </label>
+                            @Html.ValidationMessageFor(model => model.DataAcca, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-6 text-center align-content-center">
+                <p class="row" id="sec2btn"> Espandi </p>
+                <div id="sec2" >
+
+                    <div class="form-group">
+                        <div class="m-2">
+                            @Html.DropDownListFor(model => model.idDenunc, new SelectList(ViewBag.Cit, "idCittadino", "Cognome"), "««« Cognome Denunciante »»»", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.idDenunc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="m-2">
+                            @Html.TextBox("ProdImg", "", new { @class = "form-control", @Type = "file" })
+                            @Html.ValidationMessageFor(model => model.FotoOggetto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="m-2">
+                            @Html.DropDownListFor(model => model.Agente, new SelectList(ViewBag.Ag, "Nome", "Cognome"), "««« Agente »»»", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Agente, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row m-3">
+            <input type="submit" value="Aggiungi" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#sec2').slideUp();
+       
+
+        $('#sec1btn').click(function () {
+            $('p').removeClass('bg-warning');
+            $('#sec2').slideUp();
+           
+            $('#sec1btn').addClass('bg-warning');
+            $('#sec1').toggle(800);
+        })
+
+        $('#sec2btn').click(function () {
+            $('p').removeClass('bg-warning');
+            $('#sec1').slideUp();
+           
+            $('#sec2btn').addClass('bg-warning');
+            $('#sec2').toggle(800);
+
+        })
+    })
+    </script>
+}

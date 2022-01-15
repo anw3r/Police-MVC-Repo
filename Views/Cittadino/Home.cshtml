@@ -1,0 +1,67 @@
+﻿@model IEnumerable<FinalProject.Cittadino>
+
+@{
+    ViewBag.Title = "Home Cittadini";
+}
+
+
+<p class="text-md-end m-2">
+    @Html.ActionLink("Aggiungi Cittadino", "newCittadino","",new {@class="btn btn-success"})
+</p>
+<div class="bgCit m-3">
+    <table class="table table-borderless table-hover">
+
+        <tr class="bg-gradient-to-r from-sky-500 via-blue-500 to-sky-50 opacity-75">
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cognome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Residenza)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Indirizzo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoDocumento)
+            </th>
+            <th class="bg-secondary bg-opacity-25 text-center"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="bg-opacity-50">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cognome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Residenza)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Indirizzo)
+                </td>
+                <td class="text-dark">
+                    @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDocumento)
+                </td>
+                <td class="bg-secondary bg-opacity-25 text-center">
+                    @Html.ActionLink("Modifica", "Modifica", new { id = item.idCittadino }, new { @class = "btn btn-outline-dark btn-sm my-1" }) 
+                    @Html.ActionLink("Dettagli", "Dettagli", new { id = item.idCittadino }, new { @class = "btn btn-outline-dark btn-sm my-1" }) 
+
+                </td>
+            </tr>
+
+        }
+
+    </table>
+</div>

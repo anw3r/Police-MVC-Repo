@@ -1,0 +1,45 @@
+﻿@model FinalProject.Denuncia
+
+@{
+    ViewBag.Title = "Trovato";
+}
+
+<h2>Trovato</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Denuncia</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row ">
+            <div class="col-3"></div>
+            <div class="col-6">
+
+                <div class="form-group">
+                    <div class="form-floating m-3 row">
+                        @Html.EditorFor(model => model.DataRitrovo, new
+                        { htmlAttributes = new { @class = "form-control ", @Placeholder = "Data Ritrovo", @Type = "date" } })
+                        <label for="floatingPassword"> Data Ritrovo </label>
+                        @Html.ValidationMessageFor(model => model.DataRitrovo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-control2 m-3 row">
+
+                        @Html.DropDownListFor(model => model.idTrova, new SelectList(ViewBag.Cit,"idCittadino"), "Chi l'ha Trovato", new { htmlAttributes = new { @class = "dropdown-menu dropdown-toggle" } })
+
+
+                        @*<label for="idTrova">Chi l'ha Trovato</label>*@
+                        @Html.ValidationMessageFor(model => model.idTrova, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="row m-3">
+                    <input type="submit" value="Conferma" class="btn btn-outline-success " />
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+}

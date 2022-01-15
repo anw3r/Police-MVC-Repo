@@ -1,0 +1,235 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+
+
+<h2>Home</h2>
+
+<div class="container bgHome">
+    <div class="row" >
+
+        <div class="col-2"></div>
+
+        <div class="col-8">
+            <div class="text-center">
+                @Html.DropDownList("Ricerca", new SelectList(ViewBag.search, "Value", "Text"), "««« Tipo Ricerca »»»", new { htmlAttributes = new { @class = "form-control", id = "Ricerca" } })
+                <br />
+                @*<div class="form-check-inline form-switch">
+                        <span class="form-check-label" for="Vis"> Tabella </span>
+
+                        <input class="form-check-input" type="checkbox" role="checkbox" id="Vis">
+
+                        <span class="form-check-label" for="Vis"> Carte </span>
+                    </div>*@
+
+            </div>
+            <div id="ris">
+
+                <div id="op1" class=" text-center m-3">
+
+                    <input type="month" name="MesiAnno" value="" id="Data" />
+                    @*@Html.DropDownList("Anno", new SelectList(ViewBag.Anni,"Text","Value"), "««« A N N O »»»", new { @class = "form-control dropdown-toggle", @id = "Year" })*@
+                    <input type="button" id="srcbtn" value="Cerca !!" class="btn btn-info text-nowrap" />
+
+                </div>
+                <table class="tabX table table-hover m-3">
+                </table>
+
+
+            </div>
+        </div>
+
+        <div class="col-2"></div>
+
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            @*$('#Vis').change(function () {
+                if ($(this).is(':checked')) {
+                    $('.tabX').append('<div class="row"></div>');
+                    alert('You can rock now...');
+                };
+                $('.tabX').append(tabh);
+                $.each(lista, function (i) {
+
+                    $(function () {
+                        $('#Vis').change(function () {
+                            if ($(this).is(':checked')) {
+                                var risultato = '<div class="col-4"><img src="~/IMGs/' + lista[i].Foto + '" alt="Foto Ogg" style="width:45px;"/><p>' + lista[i].NomeOggetto + '</p></div>';
+                                alert('You can rock now...');
+                            };
+                        });
+                    });*@
+
+            var tabh = '<thead class="bg-gradient bg-primary rounded bg-opacity-50"><th>Foto Oggetto</th><th>Tipo</th><th>Nome Oggetto</th><th>Descrizione</th><th>Data Denuncia</th><th>Data Accadimento</th><th>Trovato</th><th>Data ritrovo</th></thead>';
+            $('#op1').hide();
+
+            $(function () {
+                $('#Vis').change(function () {
+                    if ($(this).is(':checked')) {
+
+                        alert('You can rock now...');
+                    };
+                });
+            });
+
+            $('#Ricerca').on("change", function () {
+
+                var ricerca = $('#Ricerca').val();
+
+                if (ricerca == '1') {
+                    $('#op1').show();
+                    $('#prc').remove();
+                    $('.tabX').empty();
+
+                }
+
+                else if (ricerca == '2') {
+                    $('#prc').remove();
+                    $('.tabX').empty();
+                    $('#op1').hide();
+
+                    $.ajax({
+                        url: '/Home/Op2',
+                        type: 'POST',
+                        success: function (lista) {
+
+
+
+                            $('.tabX').append(tabh);
+                            $.each(lista, function (i) {
+
+                                if (lista[i].DataRitrovo == null) {
+
+
+                                    lista[i].DataRitrovo = "Non Trovato";
+
+                                }
+                                if (lista[i].IsTrovato == false) {
+                                    lista[i].IsTrovato = "Non Trovato";
+                                }
+                                else {
+                                    lista[i].IsTrovato = "Trovato";
+                                }
+
+                                var DataAcca = new Date(parseInt(lista[i].DataAcca.replace("/Date(", "").replace(")/", "")));
+                                var DataDen = new Date(parseInt(lista[i].DataDenuncia.replace("/Date(", "").replace(")/", "")));
+                                var DataRit = new Date(parseInt(lista[i].DataRitrovo.replace("/Date(", "").replace(")/", "")));
+
+
+                                $('.tabX').append('<tr class="py-2"><td> <img src="~/IMGs/' + lista[i].Foto +
+                                    '" alt="Foto Ogg" style="width:45px;"/></td><td>' + lista[i].Tipo + '</td><td>' + lista[i].NomeOggetto + '</td><td>' + lista[i].Descrizione + '</td><td>' + DataDen + '</td><td>' + DataAcca + '</td><td>' + lista[i].IsTrovato + '</td><td>' + DataRit + '</td></tr > ');
+                            });
+                        }
+                })
+
+                }
+
+                else if(ricerca == '3') {
+                        $('#prc').remove();
+                        $('.tabX').empty();
+                        $('#op1').hide();
+                        $.ajax
+                            ({
+                                url: '/Home/Op3',
+                                type: 'POST',
+                                success: function (lista) {
+
+
+
+                                    $('.tabX').append(tabh);
+                                    $.each(lista, function (i) {
+
+                                        if (lista[i].DataRitrovo == null) {
+
+
+                                            lista[i].DataRitrovo = "Non Trovato";
+
+                                        }
+                                        if (lista[i].IsTrovato == false) {
+                                            lista[i].IsTrovato = "Non Trovato";
+                                        }
+                                        else {
+                                            lista[i].IsTrovato = "Trovato";
+                                        }
+
+                                        var DataAcca = new Date(parseInt(lista[i].DataAcca.replace("/Date(", "").replace(")/", "")));
+                                        var DataDen = new Date(parseInt(lista[i].DataDenuncia.replace("/Date(", "").replace(")/", "")));
+                                        var DataRit = new Date(parseInt(lista[i].DataRitrovo.replace("/Date(", "").replace(")/", "")));
+
+
+                                        $('.tabX').append('<tr class="py-2"><td> <img src="~/IMGs/' + lista[i].Foto +
+                                            '" alt="Foto Ogg" style="width:45px;"/></td><td>' + lista[i].Tipo + '</td><td>' + lista[i].NomeOggetto + '</td><td>' + lista[i].Descrizione + '</td><td>' + DataDen + '</td><td>' + DataAcca + '</td><td>' + lista[i].IsTrovato + '</td><td>' + DataRit + '</td></tr > ');
+                                    });
+                                }
+                            })
+                    }
+
+                else if (ricerca == '4') {
+                    $('.tabX').empty();
+                    $('#op1').hide();
+                    $.ajax
+                        ({
+                            url: '/Home/Op4',
+                            type: 'POST',
+
+                            success: function (x) {
+
+                                $('#ris').append('<div id="prc" class="rounded bg-gradient bg-success m-3 p-2 text-light text-center"><p> Percentuale Oggetti Ritrovati:<b>  ' + x + '%' + '</b></p></div>');
+                            }
+                        });
+                }
+
+                $('#srcbtn').click(function () {
+                    var Data = $('#Data').val();
+                    $('#prc').remove();
+                    $('.tabX').empty();
+
+                    @*var datasearch = new Date(parseInt(Data.replace("/Date(", "").replace(")/", "")));*@
+                    $.ajax({
+                            url: '/Home/Op1',
+                            type: 'POST',
+                            data: { m: Data },
+                            success: function (lista) {
+
+                                $('.tabX').append(tabh);
+                                $.each(lista, function (i) {
+
+                                    if (lista[i].DataRitrovo == null) {
+
+
+                                        lista[i].DataRitrovo = "Non Trovato";
+
+                                    }
+                                    if (lista[i].IsTrovato == false) {
+                                        lista[i].IsTrovato = "Non Trovato";
+                                    }
+                                    else {
+                                        lista[i].IsTrovato = "Trovato";
+                                    }
+
+                                    var DataAcca = new Date(parseInt(lista[i].DataAcca.replace("/Date(", "").replace(")/", "")));
+                                    var DataDen = new Date(parseInt(lista[i].DataDenuncia.replace("/Date(", "").replace(")/", "")));
+                                    var DataRit = new Date(parseInt(lista[i].DataRitrovo.replace("/Date(", "").replace(")/", "")));
+
+
+                                    $('.tabX').append('<tr class="py-2"><td> <img src="~/IMGs/' + lista[i].Foto +
+                                        '" alt="Foto Ogg" style="width:45px;"/></td ><td>' + lista[i].Tipo + '</td><td>' + lista[i].NomeOggetto + '</td><td>' + lista[i].Descrizione + '</td><td style="font-size:10px;">' + DataDen + '</td><td style="font-size:10px;">' + DataAcca + '</td><td>' + lista[i].IsTrovato + '</td><td style="font-size:10px;">' + DataRit + '</td></tr > ');
+                                });
+                            }
+                    })
+                })
+
+
+            })
+        })
+    </script>
+}
